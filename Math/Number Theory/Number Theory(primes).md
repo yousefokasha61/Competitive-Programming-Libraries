@@ -7,7 +7,7 @@
 
 > Wilson's Theorem: (p-1)! % p = (p-1) if p is a prime number
 
-## Code for Checking if the number is prime or not in O(N)
+# Code for Checking if the number is prime or not in O(N)
 ```
 typedef long long ll;
 
@@ -22,7 +22,7 @@ bool isPrime(ll n){
     return true;
 }
 ```
-## Code for checking if the number is prime or not in O(N/2)
+# Code for checking if the number is prime or not in O(N/2)
 
 ```
 bool isprime2(ll n) {		// O(n)
@@ -36,7 +36,7 @@ bool isprime2(ll n) {		// O(n)
 }
 ```
 
-## An important observation
+# An important observation
 * 36 = 1 * 36
 * 36 = 2 * 18
 * 36 = 3 * 12
@@ -80,7 +80,7 @@ bool isprime4(ll n) {	// O( sqrt(n)
 }
 ```
 
-## Count number of primes in a given range O(N)
+# Count number of primes in a given range O(N)
 ```
 int countPrimesInRange(int n)	// Forward thinking
 {	// O(n * sqrt(n) )
@@ -94,7 +94,7 @@ int countPrimesInRange(int n)	// Forward thinking
 }
 ```
 
-## Count number of primes in a given range O()
+# Count number of primes in a given range O(N log(log(N)))
 ```
 int countPrimesInRange_sieve(int n)	// Backward thinking
 {
@@ -115,6 +115,45 @@ int countPrimesInRange_sieve(int n)	// Backward thinking
     		cnt++;
 
     return cnt;
+}
+```
+
+# Sieve but in linear time complexity O(N)
+## Algorithm:
+Our goal is to calculate minimum prime factor ***lp[i]*** for every number ***i*** in the segment [2;n].
+
+Besides, we need to store the list of all the found prime numbers - let's call it ***pr[]***.
+
+We'll initialize the values ***lp[i]*** with zeros, which means that we assume all numbers are prime. During the algorithm execution this array will be filled gradually.
+
+Now we'll go through the numbers from 2 to *n*. We have two cases for the current number ***i***:
+
+* ***lp[i]***=0 - that means that ***i*** is prime, i.e. we haven't found any smaller factors for it.
+* Hence, we assign ***lp[i]=i*** and add ***i*** to the end of the list ***pr[]***.
+
+* ***lp[i]*** ≠0 - that means that ***i*** is composite, and its minimum prime factor is ***lp[i]***.
+
+In both cases we update values of ***lp[]*** for the numbers that are divisible by ***i***. However, our goal is to learn to do so as to set a value ***lp[]*** at most once for every number. We can do it as follows:
+
+Let's consider numbers ***xj=i⋅pj***, where ***pj*** are all prime numbers less than or equal to ***lp[i]*** (this is why we need to store the list of all prime numbers).
+
+We'll set a new value ***lp[xj]=pj*** for all numbers of this form.
+
+The proof of correctness of this algorithm and its runtime can be found after the implementation.
+
+# Code
+```
+const int N = 10000000;
+int lp[N+1];
+vector<int> pr;
+
+for (int i=2; i<=N; ++i) {
+    if (lp[i] == 0) {
+        lp[i] = i;
+        pr.push_back (i);
+    }
+    for (int j=0; j<(int)pr.size() && pr[j]<=lp[i] && i*pr[j]<=N; ++j)
+        lp[i * pr[j]] = pr[j];
 }
 ```
 
