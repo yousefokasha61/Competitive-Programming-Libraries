@@ -8,7 +8,7 @@
 > Wilson's Theorem: (p-1)! % p = (p-1) if p is a prime number
 
 # Code for Checking if the number is prime or not in O(N)
-```
+```c++
 typedef long long ll;
 
 bool isPrime(ll n){
@@ -24,7 +24,7 @@ bool isPrime(ll n){
 ```
 # Code for checking if the number is prime or not in O(N/2)
 
-```
+```c++
 bool isprime2(ll n) {		// O(n)
     if(n == 2) 	return true;
     if(n < 2 || n%2 == 0) 	return false;
@@ -49,7 +49,7 @@ bool isprime2(ll n) {		// O(n)
 
 > if n = a * b and a <= b THEN	a <= sqrt(n) and  b >= sqrt(n)
 
-```
+```c++
 bool isprime3(ll n) {	// O( sqrt(n) ? NO
     if(n == 2) 				return true;
     if(n < 2 || n%2 == 0) 	return false;
@@ -64,7 +64,7 @@ bool isprime3(ll n) {	// O( sqrt(n) ? NO
 > 
 >i*i <= n
 
-```
+```c++
 bool isprime4(ll n) {	// O( sqrt(n)
 
     if(n == 2) 				return true;
@@ -81,7 +81,7 @@ bool isprime4(ll n) {	// O( sqrt(n)
 ```
 
 # Count number of primes in a given range O(N)
-```
+```c++
 int countPrimesInRange(int n)	// Forward thinking
 {	// O(n * sqrt(n) )
 	total_operations = 0;
@@ -95,7 +95,7 @@ int countPrimesInRange(int n)	// Forward thinking
 ```
 
 # Count number of primes in a given range O(N log(log(N)))
-```
+```c++
 int countPrimesInRange_sieve(int n)	// Backward thinking
 {
 	vector<bool> isPrime(n+1, true);	// set all of them to primes
@@ -142,7 +142,7 @@ We'll set a new value ***lp[xj]=pj*** for all numbers of this form.
 The proof of correctness of this algorithm and its runtime can be found after the implementation.
 
 # Code
-```
+```c++
 const int N = 10000000;
 int lp[N+1];
 vector<int> pr;
@@ -157,7 +157,7 @@ for (int i=2; i<=N; ++i) {
 }
 ```
 ## OR
-```
+```c++
 // C++ program to generate all prime numbers 
 // less than N in O(N) 
 #include<bits/stdc++.h> 
